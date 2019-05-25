@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "es2017"],
+    "types": ["eventemitter3", "@types/webvr-api"],
+    "noImplicitAny": true,
+    "downlevelIteration": true,
+    "outDir": "lib/commonjs",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "allowJs": true,
+  },
+  "include": ["./src"]
+}

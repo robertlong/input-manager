@@ -1,0 +1,31 @@
+{
+  "name": "input-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/es2015/index.js",
+  "types": "lib/types/index.d.ts",
+  "scripts": {
+    "build": "run-p build:commonjs build:es2015 build:declaration build:docs",
+    "build:commonjs": "tsc --module commonjs --outDir ./lib/commonjs",
+    "build:es2015": "tsc --module es2015 --outDir ./lib/es2015 --target es2015",
+    "build:declaration": "tsc --module es2015 --target es2015 --emitDeclarationOnly --declaration --declarationDir ./lib/types --allowJS false",
+    "build:docs": "typedoc --out ./docs --mode modules ./src --excludeNotExported --excludePrivate",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'"
+  },
+  "author": "Robert Long",
+  "license": "MPL-2.0",
+  "dependencies": {
+    "@types/webvr-api": "0.0.35",
+    "eventemitter3": "^3.1.2",
+    "mousetrap": "^1.6.3"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.17.1",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typedoc": "^0.14.2",
+    "typescript": "^3.4.5"
+  }
+}
