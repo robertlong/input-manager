@@ -976,26 +976,35 @@ export default class InputManager extends EventEmitter {
   public update(dt: number, time: number) {
     const connectedGamepads = this.connectedGamepads;
 
-    for (let i = 0; i < connectedGamepads.length; i++) {
-      const { gamepad, key: gamepadKey, deviceMapping } = connectedGamepads[i];
-      const gamepadActionMapping = this.mapping.gamepads[gamepadKey];
+    if (connectedGamepads.length > 0) {
+      const gamepads = navigator.getGamepads();
 
-      if (gamepadActionMapping) {
-        for (const key in gamepadActionMapping) {
-          const action = gamepadActionMapping[key];
+      for (let i = 0; i < connectedGamepads.length; i++) {
+        const {
+          gamepad: initialGamepad,
+          key: gamepadKey,
+          deviceMapping
+        } = connectedGamepads[i];
+        const gamepadActionMapping = this.mapping.gamepads[gamepadKey];
+        const gamepad = gamepads[initialGamepad.index];
 
-          if (
-            deviceMapping.buttons &&
-            deviceMapping.buttons[key] !== undefined
-          ) {
-            const button = deviceMapping.buttons[key];
-            this.state[action] = gamepad.buttons[button].pressed;
-          } else if (
-            deviceMapping.axes &&
-            deviceMapping.axes[key] !== undefined
-          ) {
-            const axis = deviceMapping.axes[key];
-            this.state[action] = gamepad.axes[axis];
+        if (gamepadActionMapping) {
+          for (const key in gamepadActionMapping) {
+            const action = gamepadActionMapping[key];
+
+            if (
+              deviceMapping.buttons &&
+              deviceMapping.buttons[key] !== undefined
+            ) {
+              const button = deviceMapping.buttons[key];
+              this.state[action] = gamepad.buttons[button].pressed;
+            } else if (
+              deviceMapping.axes &&
+              deviceMapping.axes[key] !== undefined
+            ) {
+              const axis = deviceMapping.axes[key];
+              this.state[action] = gamepad.axes[axis];
+            }
           }
         }
       }
