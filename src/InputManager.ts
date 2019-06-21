@@ -976,7 +976,7 @@ export default class InputManager extends EventEmitter {
   public update(dt: number, time: number) {
     const connectedGamepads = this.connectedGamepads;
 
-    if (connectedGamepads.length > 0) {
+    if (connectedGamepads.length > 0 && this.mapping.gamepads) {
       const gamepads = navigator.getGamepads();
 
       for (let i = 0; i < connectedGamepads.length; i++) {
